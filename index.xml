@@ -6,6 +6,15 @@
     <description>Recent content on choisangh.github.io</description>
     <generator>Hugo -- gohugo.io</generator><atom:link href="https://choisangh.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>chart pattern recognizer</title>
+      <link>https://choisangh.github.io/projects/chart_pattern/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://choisangh.github.io/projects/chart_pattern/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>DNS - Domain Name System</title>
       <link>https://choisangh.github.io/articles/2.-dns-domain-name-system/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -16,15 +25,6 @@
 host name과 ip주소를 mapping하는 시스템
 DNS를 한 서버로 구축할 경우 문제점
 host name이 무제한 적으로 증가 과도한 트래픽 서버가 다운될 경우, 전 세계의 인터넷에 영향 - single point of failure DNS : 분산화, 계층화된 데이터 베이스 root DNS servers TLD DNS server (.</description>
-    </item>
-    
-    <item>
-      <title>Math Braintrainer</title>
-      <link>https://choisangh.github.io/projects/math-brain-trainer/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://choisangh.github.io/projects/math-brain-trainer/</guid>
-      <description></description>
     </item>
     
     <item>
