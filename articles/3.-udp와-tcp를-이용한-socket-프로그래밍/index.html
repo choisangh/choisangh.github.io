@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>UDP와 TCP를 이용한 Socket 프로그래밍 | choisangh.github.io</title>
+<meta name="keywords" content="" />
+<meta name="description" content="Click on me to see the content.">
+<meta name="author" content="Tom choi">
+<link rel="canonical" href="/articles/3.-udp%EC%99%80-tcp%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-socket-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7bfe087ae72df31787ec7a1360dd05ee246a179b51cf7a30a904b39d7f813b69.css" integrity="sha256-e/4Ieuct8xeH7HoTYN0F7iRqF5tRz3owqQSznX&#43;BO2k=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.b95bacdc39e37a332a9f883b1e78be4abc1fdca2bc1f2641f55e3cd3dabd4d61.js" integrity="sha256-uVus3DnjejMqn4g7Hni&#43;Srwf3KK8HyZB9V4809q9TWE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/images/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="mask-icon" href="/images/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="choisangh.github.io (Alt + H)">choisangh.github.io</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/" title="Home"><span>Home</span></a>
+            </li>
+            <li>
+                <a href="/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="/articles/" title="Articles">
+                    <span>Articles</span>
+                </a>
+            </li>
+            <li>
+                <a href="/contact/" title="Contact">
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/articles/">Articles</a></div>
+    <h1 class="post-title">
+      UDP와 TCP를 이용한 Socket 프로그래밍
+    </h1>
+    <div class="post-description">
+      Click on me to see the content.
+    </div>
+    <div class="post-meta">2 min&nbsp;·&nbsp;Tom choi</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%ec%86%8c%ec%bc%93-%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d" aria-label="소켓 프로그래밍">소켓 프로그래밍</a><ul>
+                        
+                <li>
+                    <a href="#%ec%86%8c%ec%bc%93%ec%9d%b4%eb%9e%80" aria-label="소켓이란">소켓이란</a></li>
+                <li>
+                    <a href="#2-%ea%b0%80%ec%a7%80-%ec%a2%85%eb%a5%98%ec%9d%98-%ec%86%8c%ec%bc%93" aria-label="2 가지 종류의 소켓">2 가지 종류의 소켓</a><ul>
+                        
+                <li>
+                    <a href="#%ec%86%8c%ec%bc%93-%ec%8a%a4%ed%8a%b8%eb%a6%bctcp" aria-label="소켓 스트림(TCP)">소켓 스트림(TCP)</a></li>
+                <li>
+                    <a href="#%ec%86%8c%ec%bc%93-%eb%8d%b0%ec%9d%b4%ed%83%80%ea%b7%b8%eb%9e%a8udp" aria-label="소켓 데이타그램(UDP)">소켓 데이타그램(UDP)</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#sockets-api" aria-label="Sockets API">Sockets API</a></li>
+                <li>
+                    <a href="#socket-creation-and-setup" aria-label="Socket Creation and Setup">Socket Creation and Setup</a><ul>
+                        
+                <li>
+                    <a href="#function-socket" aria-label="Function: socket">Function: socket</a></li>
+                <li>
+                    <a href="#function-bind" aria-label="Function: bind">Function: bind</a></li>
+                <li>
+                    <a href="#function-listen" aria-label="Function: listen">Function: listen</a></li>
+                <li>
+                    <a href="#function-accept-%ec%84%9c%eb%b2%84-%eb%8c%80%ea%b8%b0%ec%83%81%ed%83%9c" aria-label="Function: accept (서버 대기상태)">Function: accept (서버 대기상태)</a></li>
+                <li>
+                    <a href="#function-connect" aria-label="Function: connect">Function: connect</a></li>
+                <li>
+                    <a href="#%ec%b0%b8%ea%b3%a0" aria-label="참고">참고</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content">
+  <h1 id="소켓-프로그래밍">소켓 프로그래밍</h1>
+<h2 id="소켓이란">소켓이란</h2>
+<ul>
+<li>프로세스들 간에 통신을 위한 인터페이스</li>
+<li>우체통(OS) 구멍(소켓)</li>
+</ul>
+<h2 id="2-가지-종류의-소켓">2 가지 종류의 소켓</h2>
+<h3 id="소켓-스트림tcp">소켓 스트림(TCP)</h3>
+<ul>
+<li>신뢰성</li>
+<li>in-order guaranted</li>
+<li>connection-oriented</li>
+<li>bidirectional</li>
+</ul>
+<h3 id="소켓-데이타그램udp">소켓 데이타그램(UDP)</h3>
+<ul>
+<li>신뢰성 X</li>
+<li>no order guarantees</li>
+<li>no notion of “connection” - app indicates dest. for each packet</li>
+<li>can send or receive</li>
+</ul>
+<h1 id="sockets-api">Sockets API</h1>
+<ul>
+<li>
+<p>운영체제가 제공하는 네트워크와 관련된 시스템 콜들의 집합</p>
+</li>
+<li>
+<p>Socket API 통신 과</p>
+<p><img loading="lazy" src="/images/network3.png" alt="Group 1.png"  />
+</p>
+</li>
+</ul>
+<h1 id="socket-creation-and-setup">Socket Creation and Setup</h1>
+<h2 id="function-socket">Function: socket</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifndef __linux__ 
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;WinSock2.h&gt; //윈도우 환경일시</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt; //리눅스 환경일시</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt; //리눅스 환경일시</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> 
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">socket</span><span class="p">(</span><span class="kt">int</span> <span class="n">domain</span><span class="p">,</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">int</span> <span class="n">protocol</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>domain : 네트워크에 따라 달라진다 TCP/IP 시 AF_INET</li>
+<li>type : TCP or UDP 설정 (SOCK_STREAM, SOCK_DGRAM)</li>
+<li>protocol : 소켓의 프로토콜 타입 지정 보통 0으로 지정하거나 맞는 프로토콜 값으로 지정</li>
+</ul>
+<h2 id="function-bind">Function: bind</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifndef __linux__
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;WinSock2.h&gt; //윈도우 환경일시</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt; //리눅스 환경일시</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt; //리눅스 환경일시</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> 
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">connect</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="n">addrlen</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>sockfd : socket 함수가 리턴하는 소켓 디스크립터</li>
+<li>sockaddr : 소켓의 주소를 담는 기본 구조체</li>
+<li>myaddr : 접속하고자 하는 아이피 및 서버 포트 정보가 있는 sockaddr 구조체의 주소값</li>
+<li>addrlen : address 구조체의 길이</li>
+</ul>
+<h2 id="function-listen">Function: listen</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">listen</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">backlog</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>Put socket into passive state ( wait for connections rather than initiate a connection)</li>
+<li>returns 0 (success), -1 (failure)</li>
+<li>sockfd : 소켓 디스크럽터</li>
+<li>backlog: bound on length of unaccepted</li>
+<li>Listen is non-blocking : returns immediately</li>
+</ul>
+<h2 id="function-accept-서버-대기상태">Function: accept (서버 대기상태)</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">accept</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span><span class="o">*</span> <span class="n">cliaddr</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">addrlen</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>Accept a new connection
+<ul>
+<li>Returns file desciptor or -1 (failure)</li>
+<li>sockfd : 소켓 파일 디스크럽터</li>
+<li>cliaddr : 클라이언트 ip주소와 포트 번호</li>
+<li>addrlen : sockaddr 구조체의 길이가 저장된 변수의 주소값</li>
+</ul>
+</li>
+<li>Accept is blocking
+<ul>
+<li>returning(클라이언트 호출)전 까지 대기</li>
+</ul>
+</li>
+</ul>
+<h2 id="function-connect">Function: connect</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">connect</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span><span class="o">*</span> <span class="n">servaddr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">addrlen</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>Connect to another socket
+<ul>
+<li>return 0, -1</li>
+<li>sockfd : 소켓 파일 디스크럽터</li>
+<li>servaddr : 서버 ip주소와 포트 번호</li>
+<li>addrlen : sockaddr 구조체의 길이가 저장된 변수의 주소값</li>
+</ul>
+</li>
+<li>connect is blocking</li>
+</ul>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="https://prabbit00.tistory.com/53">https://prabbit00.tistory.com/53</a></li>
+</ul>
+
+  </div>
+
+  <footer class="post-footer">
+
+<div class="share-buttons">
+
+    <a target="_blank" rel="noopener noreferrer" aria-label="share UDP와 TCP를 이용한 Socket 프로그래밍 on linkedin"
+        href="https://www.linkedin.com/in/heycharlola/">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span> built with ♥ from charlola
+      
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
