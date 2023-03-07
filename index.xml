@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>choisangh.github.io</title>
-    <link>/</link>
+    <link>https://choisangh.github.io/</link>
     <description>Recent content on choisangh.github.io</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://choisangh.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DNS - Domain Name System</title>
-      <link>/articles/2.-dns-domain-name-system/</link>
+      <link>https://choisangh.github.io/articles/2.-dns-domain-name-system/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/articles/2.-dns-domain-name-system/</guid>
+      <guid>https://choisangh.github.io/articles/2.-dns-domain-name-system/</guid>
       <description>2강. DNS: Domain Name System DNS UDP 기반 통신 :
 패킷 손실의 가능성이 있지만 사용하는 이 response data의 크기가 작음 빠른 통신 필요 (인터넷 접속 지연 시간을 최소화할 필요성) 전화번호부와 같은 개념
 host name과 ip주소를 mapping하는 시스템
@@ -20,19 +20,19 @@ host name이 무제한 적으로 증가 과도한 트래픽 서버가 다운될 
     
     <item>
       <title>Math Braintrainer</title>
-      <link>/projects/math-brain-trainer/</link>
+      <link>https://choisangh.github.io/projects/math-brain-trainer/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/projects/math-brain-trainer/</guid>
+      <guid>https://choisangh.github.io/projects/math-brain-trainer/</guid>
       <description></description>
     </item>
     
     <item>
       <title>UDP와 TCP를 이용한 Socket 프로그래밍</title>
-      <link>/articles/3.-udp%EC%99%80-tcp%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-socket-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
+      <link>https://choisangh.github.io/articles/3.-udp%EC%99%80-tcp%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-socket-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/articles/3.-udp%EC%99%80-tcp%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-socket-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</guid>
+      <guid>https://choisangh.github.io/articles/3.-udp%EC%99%80-tcp%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-socket-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</guid>
       <description>소켓 프로그래밍 소켓이란 프로세스들 간에 통신을 위한 인터페이스 우체통(OS) 구멍(소켓) 2 가지 종류의 소켓 소켓 스트림(TCP) 신뢰성 in-order guaranted connection-oriented bidirectional 소켓 데이타그램(UDP) 신뢰성 X no order guarantees no notion of “connection” - app indicates dest. for each packet can send or receive Sockets API 운영체제가 제공하는 네트워크와 관련된 시스템 콜들의 집합
 Socket API 통신 과
 Socket Creation and Setup Function: socket #ifndef __linux__ #include &amp;lt;WinSock2.h&amp;gt; //윈도우 환경일시 #else #include&amp;lt;sys/types.h&amp;gt; //리눅스 환경일시 #include&amp;lt;sys/socket.</description>
@@ -40,10 +40,10 @@ Socket Creation and Setup Function: socket #ifndef __linux__ #include &amp;lt;Wi
     
     <item>
       <title>네트워크 어플리케이션의 원리</title>
-      <link>/articles/1.-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EC%9B%90%EB%A6%AC/</link>
+      <link>https://choisangh.github.io/articles/1.-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EC%9B%90%EB%A6%AC/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/articles/1.-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EC%9B%90%EB%A6%AC/</guid>
+      <guid>https://choisangh.github.io/articles/1.-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EC%9B%90%EB%A6%AC/</guid>
       <description>1강. 네트워크 어플리케이션의 원리 애플리케이션 계층 예시 ) 웹 브라우저 웹의 대표적인 프로토콜 : HTTP 네트워크 애플리케이션 운영체제 위에서 실행되는 프로세스인데 다른 머신의 프로세스와 메세지를 주고 받는 것 OS의 기능으로 다른 머신의 프로세스와 소통하는 것 서버-클라이언트 구조 네트워크 계층의 가장 대표적인 구조 클라이언트 : 필요할 때 만 메세지 주고받음 서버 : 언제나 소통 대기 - 고정된 주소를 가져야 함 네트워크 관련 기능에 해당하는 API가 소켓 : 소켓으로 소통 프로세스가 동작하는 머신을 IP 주소로 지칭함 → 머신 안에 존재하는 수 많은 특정 프로세스는 포트 번호로 지칭함 그러면 naver.</description>
     </item>
     
